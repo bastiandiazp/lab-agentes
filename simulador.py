@@ -563,5 +563,5 @@ grid = CanvasGrid(agent_portrayal, 400, 400, 2500, 2500)
 server = ModularServer(Ciudad, [grid, ciudad.chart, ciudad.chart2, ciudad.chart3, ciudad.chart4, ciudad.chart5, ciudad.chart6], "Simulación de Transporte Urbano", {"N": num_paraderos, "M": num_semaforos})
 
 # Iniciar servidor de visualización
-server.port = 8521
+server.port = 8528
 server.launch()

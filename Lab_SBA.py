@@ -8,9 +8,21 @@ from mesa.visualization.modules import CanvasGrid, ChartModule
 from mesa.visualization.ModularVisualization import ModularServer
 
 
-
-SEMAFOROS = [(189, 13), (189, 15), (188, 20), (188, 22), (187, 26), (187, 29)]
-
+SEMAFOROS = [(190, 12), (189, 14), (189, 19), (188, 21), (188, 26), (187, 28), (187, 33), (186, 35), (186, 40), (185, 42), (185, 47),
+    (184, 49), (184, 54), (183, 56), (183, 61), (182, 63), (182, 68), (181, 70), (181, 75), (180, 77), (180, 82), (179, 84),
+    (179, 89), (178, 91), (178, 96), (177, 98), (177, 103), (176, 105), (176, 110), (175, 112), (175, 117), (174, 119),
+    (174, 124), (173, 126), (173, 131), (172, 133), (172, 138), (171, 140), (171, 145), (170, 147), (169, 153), (168, 156),
+    (166, 162), (165, 165), (163, 171), (162, 174), (160, 180), (159, 183), (157, 189), (156, 192), (154, 198), (153, 201),
+    (151, 207), (150, 210), (148, 214), (145, 216), (142, 219), (140, 221), (137, 224), (135, 226), (132, 229), (130, 231),
+    (127, 234), (125, 236), (122, 239), (120, 241), (117, 244), (115, 246), (113, 250), (112, 252), (112, 256), (111, 258),
+    (111, 262), (110, 264), (110, 268), (109, 270), (109, 274), (108, 276), (108, 280), (107, 282), (107, 286), (106, 288),
+    (106, 292), (105, 294), (105, 298), (104, 300), (104, 304), (103, 306), (103, 310), (102, 312), (102, 316), (101, 318),
+    (101, 322), (100, 324), (100, 328), (99, 330), (99, 334), (98, 336), (98, 340), (97, 342), (97, 346), (96, 348), (96, 352),
+    (95, 354), (95, 358), (94, 360), (92, 362), (90, 361), (86, 361), (84, 360), (80, 360), (78, 359), (74, 359), (72, 358),
+    (68, 358), (66, 357), (62, 357), (60, 356), (56, 356), (54, 355), (50, 355), (48, 354), (44, 354), (42, 353), (38, 353),
+    (36, 352), (32, 352), (30, 351), (26, 351), (24, 350), (22, 348), (22, 345), (20, 343)]
+#134 semaforos
+    
 PARADEROS = [(190, 10), (189, 17), (188, 24), (187, 31), (186, 38), (185, 45), (184, 52), (183, 59), (182, 66), (181, 73), 
 (180, 80), (179, 87), (178, 94), (177, 101), (176, 108), (175, 115), (174, 122), (173, 129), (172, 136), (171, 143), 
 (170, 150), (167, 159), (164, 168), (161, 177), (158, 186), (155, 195), (152, 204), (149, 213), (143, 218), (138, 223), 
@@ -18,49 +30,97 @@ PARADEROS = [(190, 10), (189, 17), (188, 24), (187, 31), (186, 38), (185, 45), (
 (107, 284), (106, 290), (105, 296), (104, 302), (103, 308), (102, 314), (101, 320), (100, 326), (99, 332), (98, 338), 
 (97, 344), (96, 350), (95, 356), (94, 362), (88, 361), (82, 360), (76, 359), (70, 358), (64, 357), (58, 356), (52, 355), 
 (46, 354), (40, 353), (34, 352), (28, 351), (22, 350), (23, 346), (19,342)]
-
 #68 paraderos
+
 PERSONAS_ESPERANDO_PARADERO_INICIAL = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
-RECORRIDO = [(190, 10), (189, 11), (189, 12), (189, 13), (189, 14), (189, 15), (189, 16), (189, 17), (188, 18), (188, 19), (188, 20), (188, 21), (188, 22), (188, 23), (188, 24), (187, 25), (187, 26), (187, 27), (187, 28), (187, 29), (187, 30), (187, 31), (186, 32), (186, 33), (186, 34), (186, 35), (186, 36), (186, 37), (186, 38), (185, 45)]
-#RECORRIDO = [(61, 369) ,(60, 370) ,(59, 371) ,(58, 372) ,(58, 373) ,(58, 374) ,(58, 375) ,(58, 376) ,(58, 377) ,(58, 378) ,(58, 379) ,(58, 380) ,(58, 381) ,(58, 382) ,(57, 383) ,(56, 384) ,(55, 385) ,(54, 386) ,(53, 387) ,(52, 388) ,(51, 389) ,(50, 390) ,(49, 390) ,(48, 390) ,(47, 390) ,(46, 390) ,(45, 390) ,(44, 390) ,(43, 390) ,(42, 389) ,(41, 389) ,(40, 389) ,(39, 388) ,(38, 388) ,(37, 388) ,(36, 388) ,(35, 388) ,(34, 388) ,(33, 388) ,(32, 388) ,(31, 388) ,(30, 387) ,(29, 387) ,(28, 387) ,(27, 387) ,(26, 387) ,(25, 387) ,(24, 387) ,(23, 387) ,(22, 387) ,(22, 386) ,(22, 385) ,(22, 384) ,(22, 383) ,(22, 382) ,(22, 381) ,(22, 380) ,(22, 379) ,(22, 378) ,(22, 377) ,(22, 376) ,(22, 375) ,(22, 374) ,(22, 373) ,(22, 372) ,(22, 371) ,(22, 370) ,(22, 369) ,(23, 368) ,(24, 367) ,(24, 366) ,(24, 365) ,(24, 364) ,(24, 363) ,(24, 362) ,(24, 361) ,(24, 360) ,(24, 359) ,(24, 358) ,(24, 357) ,(24, 356) ,(24, 355) ,(24, 354) ,(24, 353) ,(24, 352) ,(24, 351) ,(24, 350) ,(24, 349) ,(24, 348) ,(24, 347) ,(24, 346) ,(24, 345) ,(24, 344) ,(24, 343) ,(24, 342) ,(24, 341) ,(24, 340) ,(24, 339) ,(24, 338) ,(24, 337) ,(24, 336) ,(24, 335) ,(24, 334) ,(24, 333) ,(24, 332) ,(24, 331) ,(24, 330) ,(24, 329) ,(24, 328) ,(24, 327) ,(24, 326) ,(24, 325) ,(24, 324) ,(24, 323) ,(24, 322) ,(24, 321) ,(24, 320) ,(24, 319) ,(24, 318) ,(24, 317) ,(24, 316) ,(24, 315) ,(24, 314) ,(24, 313) ,(24, 312) ,(25, 311) ,(26, 310) ,(27, 309) ,(27, 308) ,(27, 307) ,(28, 306) ,(29, 305) ,(30, 304) ,(31, 303) ,(32, 302) ,(32, 301) ,(32, 300) ,(33, 299) ,(34, 298) ,(35, 297) ,(36, 296) ,(36, 295) ,(36, 294) ,(36, 293) ,(36, 292) ,(37, 291) ,(38, 290) ,(39, 289) ,(40, 288) ,(41, 288) ,(42, 288) ,(43, 287) ,(44, 287) ,(45, 286) ,(46, 286) ,(47, 285) ,(48, 284) ,(49, 284) ,(50, 284) ,(51, 284) ,(52, 284) ,(53, 283) ,(54, 282) ,(55, 282) ,(56, 282) ,(57, 282) ,(58, 282) ,(59, 282) ,(60, 282) ,(61, 282) ,(62, 281) ,(63, 280) ,(64, 279) ,(65, 279) ,(66, 279) ,(67, 279) ,(68, 279) ,(69, 279) ,(70, 278) ,(71, 278) ,(72, 278) ,(73, 277) ,(74, 276) ,(75, 275) ,(76, 274) ,(77, 274) ,(78, 273) ,(79, 272) ,(80, 272) ,(81, 271) ,(82, 270) ,(83, 270) ,(84, 270) ,(85, 270) ,(86, 269) ,(87, 268) ,(88, 267) ,(89, 266) ,(90, 266) ,(91, 266) ,(92, 266) ,(92, 265) ,(93, 264) ,(94, 263) ,(95, 262) ,(96, 261) ,(96, 260) ,(97, 259) ,(97, 258) ,(98, 257) ,(99, 256) ,(100, 255) ,(100, 254) ,(101, 253) ,(102, 252) ,(102, 251) ,(102, 250) ,(103, 249) ,(104, 248) ,(105, 247) ,(106, 246) ,(107, 245) ,(108, 245) ,(109, 245) ,(110, 244) ,(111, 243) ,(112, 242) ,(112, 241) ,(112, 240) ,(113, 239) ,(114, 239) ,(115, 239) ,(116, 238) ,(117, 238) ,(118, 238) ,(119, 237) ,(120, 236) ,(121, 235) ,(122, 234) ,(123, 233) ,(124, 233) ,(125, 232) ,(126, 231) ,(127, 230) ,(128, 230) ,(129, 229) ,(130, 229) ,(131, 228) ,(132, 228) ,(133, 228) ,(134, 228) ,(135, 228) ,(136, 228) ,(137, 228) ,(138, 228) ,(139, 228) ,(140, 227) ,(141, 227) ,(142, 227) ,(143, 227) ,(144, 227) ,(145, 227) ,(146, 227) ,(147, 227) ,(148, 226) ,(149, 226) ,(150, 226) ,(151, 226) ,(152, 226) ,(153, 226) ,(154, 226) ,(155, 226) ,(156, 226) ,(157, 226) ,(158, 226) ,(159, 226) ,(160, 226) ,(161, 226) ,(162, 226) ,(163, 225) ,(164, 224) ,(165, 224) ,(166, 223) ,(167, 222) ,(168, 222) ,(169, 222) ,(170, 222) ,(171, 222) ,(172, 222) ,(173, 222) ,(174, 222) ,(175, 222) ,(176, 222) ,(177, 222) ,(178, 222) ,(179, 222) ,(180, 222) ,(181, 222) ,(182, 222) ,(183, 222) ,(184, 222) ,(185, 222) ,(186, 222) ,(187, 222) ,(188, 222) ,(189, 222) ,(190, 222) ,(191, 222) ,(192, 222) ,(193, 222) ,(194, 222) ,(195, 222) ,(196, 222) ,(197, 222) ,(198, 222) ,(199, 222) ,(200, 222) ,(201, 222) ,(202, 222) ,(203, 222) ,(204, 222) ,(205, 222) ,(206, 222) ,(207, 222) ,(208, 222) ,(209, 222) ,(210, 222) ,(211, 222) ,(212, 222) ,(213, 222) ,(214, 222) ,(215, 222) ,(216, 222) ,(217, 222) ,(218, 222) ,(219, 222) ,(220, 221) ,(221, 221) ,(222, 221) ,(223, 221) ,(224, 221) ,(225, 221) ,(226, 221) ,(227, 221) ,(228, 220) ,(229, 220) ,(230, 220) ,(231, 220) ,(232, 220) ,(233, 220) ,(234, 220) ,(235, 220) ,(236, 220) ,(237, 220) ,(238, 220) ,(239, 220) ,(240, 220) ,(241, 220) ,(242, 220) ,(243, 220) ,(244, 220) ,(245, 220) ,(246, 220) ,(247, 220) ,(248, 220) ,(249, 220) ,(250, 220) ,(251, 220) ,(252, 220) ,(253, 220) ,(254, 220) ,(255, 219) ,(256, 218) ,(257, 218) ,(258, 218) ,(259, 217) ,(260, 217) ,(261, 217) ,(262, 217) ,(263, 217) ,(264, 216) ,(265, 216) ,(266, 216) ,(267, 215) ,(268, 215) ,(269, 215) ,(270, 215) ,(271, 215) ,(272, 215) ,(273, 214) ,(274, 214) ,(275, 213) ,(276, 213) ,(277, 213) ,(278, 213) ,(279, 213) ,(280, 213) ,(281, 212) ,(282, 212) ,(283, 211) ,(284, 210) ,(284, 209) ,(284, 208) ,(284, 207) ,(284, 206) ,(284, 205) ,(285, 204) ,(286, 203) ,(286, 202) ,(286, 201) ,(286, 200) ,(286, 199) ,(286, 198) ,(286, 197) ,(287, 196) ,(288, 195) ,(288, 194) ,(288, 193) ,(288, 192) ,(288, 191) ,(288, 190) ,(288, 189) ,(288, 188) ,(289, 187) ,(290, 186) ,(290, 185) ,(290, 184) ,(290, 183) ,(290, 182) ,(290, 181) ,(290, 180) ,(290, 179) ,(290, 178) ,(290, 177) ,(290, 176) ,(290, 175) ,(290, 174) ,(291, 173) ,(291, 172) ,(291, 171) ,(292, 170) ,(293, 169) ,(294, 168) ,(294, 167) ,(294, 166) ,(295, 165) ,(295, 164) ,(295, 163) ,(295, 162) ,(296, 161) ,(296, 160) ,(297, 159) ,(298, 158) ,(298, 157) ,(298, 156) ,(298, 155) ,(298, 154) ,(298, 153) ,(298, 152) ,(298, 151) ,(298, 150) ,(298, 149) ,(298, 148) ,(299, 147) ,(299, 146) ,(299, 145) ,(300, 144) ,(300, 143) ,(300, 142) ,(301, 141) ,(302, 140) ,(303, 139) ,(304, 138) ,(305, 137) ,(306, 136) ,(307, 135) ,(308, 134) ,(309, 133) ,(309, 132) ,(309, 131) ,(310, 130) ,(311, 129) ,(312, 128) ,(313, 127) ,(314, 126) ,(314, 125) ,(314, 124) ,(315, 123) ,(316, 122) ,(317, 121) ,(318, 120) ,(319, 119) ,(320, 118) ,(321, 117) ,(322, 116) ,(323, 115) ,(324, 114) ,(325, 113) ,(325, 112) ,(325, 111) ,(325, 110) ,(325, 109) ,(326, 108) ,(327, 107) ,(328, 106) ,(329, 105) ,(330, 104) ,(331, 103) ,(332, 102) ,(333, 101) ,(334, 100) ,(335, 99) ,(336, 98) ,(337, 97) ,(337, 96) ,(338, 95) ,(338, 94) ,(338, 93) ,(338, 92) ,(338, 91) ,(338, 90) ,(338, 89) ,(338, 88) ,(338, 87) ,(338, 86) ,(338, 85) ,(338, 84) ,(338, 83) ,(338, 82) ,(337, 81) ,(337, 80) ,(337, 79) ,(337, 78) ,(336, 77) ,(336, 76) ,(336, 75) ,(336, 74) ,(336, 73) ,(336, 72) ,(336, 71) ,(336, 70) ,(336, 69) ,(337, 68) ,(338, 67) ,(338, 66) ,(338, 65) ,(338, 64) ,(338, 63) ,(338, 62) ,(338, 61) ,(338, 60) ,(339, 59) ,(339, 58) ,(339, 57) ,(339, 56) ,(339, 55) ,(339, 54) ,(339, 53) ,(339, 52) ,(339, 51) ,(340, 50) ,(341, 49) ,(342, 48) ,(343, 47) ,(344, 46) ,(344, 45) ,(344, 44) ,(345, 43) ,(346, 42) ,(346, 41) ,(346, 40) ,(347, 39) ,(348, 38) ,(349, 37) ,(350, 36) ,(351, 35) ,(352, 34) ,(353, 33) ,(354, 32) ,(355, 31) ,(356, 30) ,(357, 29) ,(358, 28) ,(359, 27) ,(360, 26) ,(361, 25) ,(362, 24) ,(363, 23) ,(364, 22) ,(365, 21) ,(366, 20) ,(367, 19) ,(368, 18) ,(367, 17) ,(366, 16) ,(366, 15) ,(366, 14) ,(366, 13) ,(366, 12) ,(366, 11) ,(366, 10) ,(365, 9) ,(364, 9) ,(363, 9) ,(362, 9) ,(361, 9) ,(360, 9) ,(359, 10) ,(358, 11) ,(357, 12) ,(356, 13) ,(356, 14)]
+
+
+RECORRIDO = [(190, 10), (190, 11), (190, 12), (190, 13), (189, 14), (189, 15), (189, 16), (189, 17), (189, 17), (189, 18), 
+             (189, 19), (189, 20), (188, 21), (188, 22), (188, 23), (188, 24), (188, 24), (188, 25), (188, 26), (188, 27), 
+             (187, 28), (187, 29), (187, 30), (187, 31), (187, 31), (187, 32), (187, 33), (187, 34), (186, 35), (186, 36), 
+             (186, 37), (186, 38), (186, 38), (186, 39), (186, 40), (186, 41), (185, 42), (185, 43), (185, 44), (185, 45), 
+             (185, 45), (185, 46), (185, 47), (185, 48), (184, 49), (184, 50), (184, 51), (184, 52), (184, 52), (184, 53), 
+             (184, 54), (184, 55), (183, 56), (183, 57), (183, 58), (183, 59), (183, 59), (183, 60), (183, 61), (183, 62), 
+             (182, 63), (182, 64), (182, 65), (182, 66), (182, 66), (182, 67), (182, 68), (182, 69), (181, 70), (181, 71), 
+             (181, 72), (181, 73), (181, 73), (181, 74), (181, 75), (181, 76), (180, 77), (180, 78), (180, 79), (180, 80), 
+             (180, 80), (180, 81), (180, 82), (180, 83), (179, 84), (179, 85), (179, 86), (179, 87), (179, 87), (179, 88), 
+             (179, 89), (179, 90), (178, 91), (178, 92), (178, 93), (178, 94), (178, 94), (178, 95), (178, 96), (178, 97), 
+             (177, 98), (177, 99), (177, 100), (177, 101), (177, 101), (177, 102), (177, 103), (177, 104), (176, 105), (176, 106), 
+             (176, 107), (176, 108), (176, 108), (176, 109), (176, 110), (176, 111), (175, 112), (175, 113), (175, 114), (175, 115), 
+             (175, 115), (175, 116), (175, 117), (175, 118), (174, 119), (174, 120), (174, 121), (174, 122), (174, 122), (174, 123), 
+             (174, 124), (174, 125), (173, 126), (173, 127), (173, 128), (173, 129), (173, 129), (173, 130), (173, 131), (173, 132), 
+             (172, 133), (172, 134), (172, 135), (172, 136), (172, 136), (172, 137), (172, 138), (172, 139), (171, 140), (171, 141), 
+             (171, 142), (171, 143), (171, 143), (171, 144), (171, 145), (171, 146), (170, 147), (170, 148), (170, 149), (170, 150), 
+             (170, 150), (170, 151), (169, 152), (169, 153), (169, 154), (168, 155), (168, 156), (168, 157), (167, 158), (167, 159), 
+             (167, 159), (167, 160), (166, 161), (166, 162), (166, 163), (165, 164), (165, 165), (165, 166), (164, 167), (164, 168), 
+             (164, 168), (164, 169), (163, 170), (163, 171), (163, 172), (162, 173), (162, 174), (162, 175), (161, 176), (161, 177), 
+             (161, 177), (161, 178), (160, 179), (160, 180), (160, 181), (159, 182), (159, 183), (159, 184), (158, 185), (158, 186), 
+             (158, 186), (158, 187), (157, 188), (157, 189), (157, 190), (156, 191), (156, 192), (156, 193), (155, 194), (155, 195), 
+             (155, 195), (155, 196), (154, 197), (154, 198), (154, 199), (153, 200), (153, 201), (153, 202), (152, 203), (152, 204), 
+             (152, 204), (152, 205), (151, 206), (151, 207), (151, 208), (150, 209), (150, 210), (150, 211), (149, 212), (149, 213), 
+             (149, 213), (148, 214), (147, 215), (146, 216), (145, 216), (144, 217), (143, 218), (143, 218), (142, 219), (141, 220), 
+             (140, 221), (139, 222), (138, 223), (138, 223), (137, 224), (136, 225), (135, 226), (134, 227), (133, 228), (133, 228), 
+             (132, 229), (131, 230), (130, 231), (129, 232), (128, 233), (128, 233), (127, 234), (126, 235), (125, 236), (124, 237), 
+             (123, 238), (123, 238), (122, 239), (121, 240), (120, 241), (119, 242), (118, 243), (118, 243), (117, 244), (116, 245), 
+             (115, 246), (114, 247), (113, 248), (113, 248), (113, 249), (113, 250), (112, 251), (112, 252), (112, 253), (112, 254), 
+             (112, 254), (112, 255), (112, 256), (112, 257), (111, 258), (111, 259), (111, 260), (111, 260), (111, 261), (111, 262), 
+             (110, 263), (110, 264), (110, 265), (110, 266), (110, 266), (110, 267), (110, 268), (110, 269), (109, 270), (109, 271), 
+             (109, 272), (109, 272), (109, 273), (109, 274), (108, 275), (108, 276), (108, 277), (108, 278), (108, 278), (108, 279), 
+             (108, 280), (108, 281), (107, 282), (107, 283), (107, 284), (107, 284), (107, 285), (107, 286), (106, 287), (106, 288), 
+             (106, 289), (106, 290), (106, 290), (106, 291), (106, 292), (106, 293), (105, 294), (105, 295), (105, 296), (105, 296), 
+             (105, 297), (105, 298), (104, 299), (104, 300), (104, 301), (104, 302), (104, 302), (104, 303), (104, 304), (104, 305), 
+             (103, 306), (103, 307), (103, 308), (103, 308), (103, 309), (103, 310), (102, 311), (102, 312), (102, 313), (102, 314), 
+             (102, 314), (102, 315), (102, 316), (102, 317), (101, 318), (101, 319), (101, 320), (101, 320), (101, 321), (101, 322), 
+             (100, 323), (100, 324), (100, 325), (100, 326), (100, 326), (100, 327), (100, 328), (100, 329), (99, 330), (99, 331), 
+             (99, 332), (99, 332), (99, 333), (99, 334), (98, 335), (98, 336), (98, 337), (98, 338), (98, 338), (98, 339), (98, 340), 
+             (98, 341), (97, 342), (97, 343), (97, 344), (97, 344), (97, 345), (97, 346), (96, 347), (96, 348), (96, 349), (96, 350), 
+             (96, 350), (96, 351), (96, 352), (96, 353), (95, 354), (95, 355), (95, 356), (95, 356), (95, 357), (95, 358), (94, 359), 
+             (94, 360), (94, 361), (94, 362), (94, 362), (93, 362), (92, 362), (91, 362), (90, 361), (89, 361), (88, 361), (88, 361), 
+             (87, 361), (86, 361), (85, 360), (84, 360), (83, 360), (82, 360), (82, 360), (81, 360), (80, 360), (79, 360), (78, 359), 
+             (77, 359), (76, 359), (76, 359), (75, 359), (74, 359), (73, 358), (72, 358), (71, 358), (70, 358), (70, 358), (69, 358), 
+             (68, 358), (67, 358), (66, 357), (65, 357), (64, 357), (64, 357), (63, 357), (62, 357), (61, 356), (60, 356), (59, 356), 
+             (58, 356), (58, 356), (57, 356), (56, 356), (55, 356), (54, 355), (53, 355), (52, 355), (52, 355), (51, 355), (50, 355), 
+             (49, 354), (48, 354), (47, 354), (46, 354), (46, 354), (45, 354), (44, 354), (43, 354), (42, 353), (41, 353), (40, 353), 
+             (40, 353), (39, 353), (38, 353), (37, 352), (36, 352), (35, 352), (34, 352), (34, 352), (33, 352), (32, 352), (31, 352), 
+             (30, 351), (29, 351), (28, 351), (28, 351), (27, 351), (26, 351), (25, 350), (24, 350), (23, 350), (22, 350), (22, 350), 
+             (22, 349), (22, 348), (23, 347), (23, 346), (23, 346), (22, 345), (21, 344), (20, 343), (19, 342), (19, 342)]
+
+
+#VEL_MAX = 11.11 # m/s 40km/h
+#VEL_MAX_PUNTA = 5.56  # m/s 20km/h
 VEL_MAX = 11.11 # m/s 40km/h
 VEL_MAX_PUNTA = 5.56  # m/s 20km/h
-ACELERACION = VEL_MAX/30
+ACELERACION = VEL_MAX/30 
 ACELERACION_PUNTA = VEL_MAX_PUNTA/20
-DESACELERACION = -VEL_MAX/4
-ESCALA =44 # metros que representa cada bloque
+ESCALA =50 # metros que representa cada bloque
+LIMITE_PASAJEROS_BUS = 30
+INTERVALO_ADICION_PEATONES_EN_PARADERO = 60 #STEPS
+INTERVALO_SEMAFORO = 30 #STEPS
 tiempos_de_espera = [timedelta(seconds=300)]
 
-'''
-(189, 17), (188, 18), (188, 19), (188, 20), (188, 21), (188, 22), (188, 23), (188, 24), (187, 25), (187, 26), (187, 27), (187, 28), (187, 29), (187, 30), (187, 31), (186, 32), (186, 33), (186, 34), (186, 35), (186, 36), (186, 37), (186, 38), (185, 45), (184, 46), (183, 47), (182, 48), (181, 49), (180, 50), (179, 51), (178, 52), (177, 53), (176, 54), , (175, 55), (174, 56), (173, 57), (172, 58), (171, 59), (170, 60), (169, 61), (168, 62), (167, 63), (166, 64), , (165, 65), (164, 66), (163, 67), (162, 68), (161, 69), (160, 70), (159, 71), (158, 72), (157, 73), (156, 74), , (155, 75), (154, 76), (153, 77), (152, 78), (151, 79), (150, 80), (149, 81), (148, 82), (147, 83), (146, 84), , (145, 85), (144, 86), (143, 87), (142, 88), (141, 89), (140, 90), (139, 91), (138, 92), (137, 93), (136, 94), , (135, 95), (134, 96), (133, 97), (132, 98), (131, 99), (130, 100), (129, 101), (128, 102), (127, 103), (126, 104), , (125, 105), (124, 106), (123, 107), (122, 108), (121, 109), (120, 110), (119, 111), (118, 112), (117, 113), (116, 114), , (115, 115), (114, 116), (113, 117), (112, 118), (111, 119), (110, 120), (109, 121), (108, 122), (107, 123), (106, 124), , (105, 125), (104, 126), (103, 127), (102, 128), (101, 129), (100, 130), (99, 131), (98, 132), (97, 133), (96, 134), , (95, 135), (94, 136), (93, 137), (92, 138), (91, 139), (90, 140), (89, 141), (88, 142), (87, 143), (86, 144), (85, 145), , (84, 146), (83, 147), (82, 148), (81, 149), (80, 150), (79, 151), (78, 152), (77, 153), (76, 154), (75, 155), (74, 156), , (73, 157), (72, 158), (71, 159), (70, 160), (69, 161), (68, 162), (67, 163), (66, 164), (65, 165), (64, 166), (63, 167), , (62, 168), (61, 169), (60, 170), (59, 171), (58, 172), (57, 173), (56, 174), (55, 175), (54, 176), (53, 177), (52, 178), , (51, 179), (50, 180), (49, 181), (48, 182), (47, 183), (46, 184), (45, 185), (44, 186), (43, 187), (42, 188), (41, 189), , (40, 190), (39, 191), (38, 192), (37, 193), (36, 194), (35, 195), (34, 196), (33, 197), (32, 198), (31, 199), (30, 200), , (29, 201), (28, 202), (27, 203), (26, 204), (25, 205), (24, 206), (23, 207), (22, 208), (21, 209), (20, 210), (19, 211), , (18, 212), (17, 213), (16, 214), (15, 215), (14, 216), (13, 217), (12
 
-
-
-'''
 # Configuración de la simulación
 num_paraderos = 68
-num_semaforos = 75
+num_semaforos = 74
 #City = City(num_paraderos, num_semaforos)
 
-def random_within_bounds(lower, upper, exclude):
+def random_within_bounds(lower, upper):
     """
     Genera un número aleatorio dentro de un rango [lower, upper),
     excluyendo el valor especificado en exclude.
     """
     if lower >= upper:
-        raise ValueError("La cota inferior debe ser menor que la cota superior.")
-
-    while True:
-        random_number = random.randint(lower, upper - 1)
-        if random_number != exclude:
-            return random_number
+        aux = lower
+        lower = upper
+        upper = aux
+    random_number = random.randint(lower, upper - 1)
+    return random_number
 
 class PosicionRecorrido(Agent):
     def __init__(self, unique_id, model, x, y):
         super().__init__(unique_id, model)
         self.posicion = (x, y) #Posición del paradero
-        #self.peatones = [] #lista de peatones (lista de Clase de Peatón)
-        #self.cant_peatones = 0 #cantidad de peatones en el paradero
+
     def step(self):
         #print("soy un paradero: " + str(self.unique_id) + " y tengo " + str(len(self.personas)) + " personas")
         pass
@@ -69,11 +129,14 @@ class TrafficLight(Agent):
     def __init__(self, unique_id, model, x, y):
         super().__init__(unique_id, model)
         self.posicion = (x, y) #Posición del paradero
-        self.color = "green"
+        self.color = random.choice(["green", "red"])
 
     def step(self):
-        
-        pass
+        if self.model.schedule.steps % INTERVALO_SEMAFORO == 0:
+            if self.color == "green":
+                self.color = "red"
+            else:
+                self.color = "green"
 
 class Bus(Agent):
     def __init__(self, unique_id, model, velocidad_maxima, aceleracion, recorrido):
@@ -85,47 +148,54 @@ class Bus(Agent):
         self.velocidad = 0
         self.distancia_recorrida = 0
         self.posicion_actual = 0  # Índice actual en el recorrido (representa tambien el bloque actual)
-        self.limite_pasajeros = 30 #capacidad maxima de pasajeros
+        self.limite_pasajeros = LIMITE_PASAJEROS_BUS #capacidad maxima de pasajeros
         self.ultimo_semaforo=-1 #indice del ultimo semaforo en el que se detuvo
         self.ultimo_paradero=-1 #indice del ultimo paradero en el que se detuvo
+        self.steps_en_standBy = 0 #indica si el bus esta en un paradero
+        self.puede_moverse = True #indica si el bus puede moverse o no
 
     def moverse(self):
-        # Ajustar velocidad y posición según el recorrido
-        if self.posicion_actual < len(self.recorrido) - 1:
-            distancia_por_recorrer = self.calcularDistancia()
-            if self.velocidad >= self.velocidad_maxima:
-                self.velocidad = self.velocidad_maxima
-            elif self.velocidad < self.velocidad_maxima:
-                self.velocidad += self.aceleracion
-            self.distancia_recorrida += distancia_por_recorrer
-            self.posicion_actual += int(self.distancia_recorrida // ESCALA) # se pasa a escala de simulacion
-            self.posicion_actual = self.posicion_actual% (len(self.recorrido)-1)
-            #print ("posicion actual: " + str(self.posicion_actual) + "len recorrido: " + str(len(self.recorrido)))
-            self.model.grid.move_agent(self, self.recorrido[self.posicion_actual])
+        #print("Bus " + str(self.unique_id) + "en standby: " + str(self.steps_en_standBy))
+        if self.puede_moverse:
+            if self.steps_en_standBy == 0:  #solo puede moverse si no tiene steps en standby
+                # Ajustar velocidad y posición según el recorrido
+                if self.posicion_actual < len(self.recorrido) - 1:
+                    distancia_por_recorrer = self.calcularDistancia()
+                    if self.velocidad >= self.velocidad_maxima:
+                        self.velocidad = self.velocidad_maxima
+                    elif self.velocidad < self.velocidad_maxima:
+                        self.velocidad += self.aceleracion
+                    self.distancia_recorrida += distancia_por_recorrer #se suma la distancia recorrida
+                    print("bloque actual: " + str(self.distancia_recorrida // ESCALA)+ ", bloque anterior: "+ str(self.posicion_actual) + ",salto de bloques: " + str(int(distancia_por_recorrer // ESCALA)))                                                                                                                                                                                                                                                                                                                                                                                                    
+                    self.posicion_actual = int(self.distancia_recorrida // ESCALA) # se pasa a escala de simulacion
+                    self.posicion_actual = self.posicion_actual% (len(self.recorrido)-1)
+                    self.model.grid.move_agent(self, self.recorrido[self.posicion_actual])
 
-        else:
-            # Si ya llegó al final del recorrido, reiniciar
-            self.velocidad = 0
-            self.posicion_actual = 0
+                else:
+                    # Si ya llegó al final del recorrido, reiniciar
+                    self.velocidad = 0
+                    self.posicion_actual = 0
+            else:
+                self.steps_en_standBy-=1
 
-
-    def recogerPasajeros(self, agent,indice_paradero):
-        if indice_paradero != self.ultimo_paradero: #si todavia no paso por esta paradero
+    def recogerPasajeros(self, paradero):
             #print("Bus " + str(self.unique_id) + " recogiendo personas en paradero " + str(agent.unique_id))
-            for persona in agent.personas:
+            for persona in paradero.personas[:]:
                 if len(self.pasajeros) < self.limite_pasajeros: #si el bus no esta lleno
+                    self.steps_en_standBy+= 1   #agrego un standby por cada persona que se sube
                     self.pasajeros.append(persona) #se agregan las personas al bus
-            agent.personas = [] #se vacia la lista de personas en el paradero
+                    paradero.personas.remove(persona) #se saca la persona del paradero
                     
             #print(f"Agente {agent.unique_id} en la celda  {self.recorrido[self.posicion_actual]}")
 
     def abandonarPasajeros(self,agent,indice_paradero):
-        print("largo pasajeros: " + str(len(self.pasajeros)) + " indice paradero: " + str(indice_paradero) + " posicion actual: " + str(self.posicion_actual) + " ultimo paradero: " + str(self.ultimo_paradero) + " ultimo semaforo: " + str(self.ultimo_semaforo) + " largo recorrido: " + str(len(self.recorrido)))
+
         for persona in self.pasajeros[:]:
-            print(f"{persona.destino}, {indice_paradero}")
+            #print(f"{persona.destino}, {indice_paradero}")
             if persona.destino == indice_paradero: #si el destino de la persona es el paradero actual
+                self.steps_en_standBy+= 1   #agrego un standby por cada persona que se baja
                 self.pasajeros.remove(persona)
-                print("Bus " + str(self.unique_id) + " dejando persona " + str(persona.unique_id) + " en paradero " + str(self.posicion_actual))
+                #print("Bus " + str(self.unique_id) + " dejando persona " + str(persona.unique_id) + " en paradero " + str(self.posicion_actual))
                 agent.personas.append(persona)
 
     def calcularDistancia(self):
@@ -136,11 +206,22 @@ class Bus(Agent):
         cell_contents = self.model.grid.get_cell_list_contents(self.recorrido[self.posicion_actual]) #obtengo los agentes en la celda actual
         for agent in cell_contents: #recorro los agentes en la celda actual
             if isinstance(agent, BusStop): #si es un paradero
-                indice_paradero = PARADEROS.index(agent.posicion) #obtengo el indice en la lista de paraderos
-                print("Bus " + str(self.unique_id) + " en paradero " + str(indice_paradero))
-                self.abandonarPasajeros(agent,indice_paradero)
-                self.recogerPasajeros(agent,indice_paradero)
-                self.ultimo_paradero = indice_paradero
+                indice_paradero = PARADEROS.index(agent.posicion) #obtengo el indice del paradero
+                if indice_paradero != self.ultimo_paradero: #si todavia no paso por esta paradero
+                    #print("Bus " + str(self.unique_id) + " en paradero " + str(indice_paradero) + "con ultimo paradero " + str(self.ultimo_paradero) + " y ultimo semaforo " + str(self.ultimo_semaforo) + " y largo recorrido " + str(len(self.recorrido)))
+                    self.abandonarPasajeros(agent,indice_paradero)
+                    self.recogerPasajeros(agent)
+                    self.ultimo_paradero = indice_paradero
+                    self.velocidad = 0
+            if isinstance(agent, TrafficLight):
+                indice_semaforo = SEMAFOROS.index(agent.posicion)
+                if agent.color == "red":
+                    if indice_semaforo != self.ultimo_paradero:
+                        self.velocidad = 0
+                        self.ultimo_semaforo = indice_semaforo
+                        self.puede_moverse = False
+                else:
+                    self.puede_moverse = True   
         self.moverse()
 
 class Person(Agent):
@@ -155,42 +236,44 @@ class BusStop(Agent):
         super().__init__(unique_id, model)
         self.posicion = (x, y) #Posición del paradero
         self.personas = [] #lista de personas esperando (lista de Clase de Peatón)
-        #self.peatones = [] #lista de peatones (lista de Clase de Peatón)
-        #self.cant_peatones = 0 #cantidad de peatones en el paradero
+        self.cantidad_personas = 0 #cantidad de personas en el paradero
     def step(self):
+        if self.model.schedule.steps % INTERVALO_ADICION_PEATONES_EN_PARADERO == 0:
+            agregar = random_within_bounds(1, 5) #agrego 1 o 5 personas al paradero
+            for _ in range(agregar):
+                cota_inferior_destino = PARADEROS.index(self.posicion) #obtengo el indice del paradero actual
+                cota_superior_destino = len(PARADEROS) #obtengo el indice del ultimo paradero
+                persona = Person(self.model.schedule.get_agent_count(), self, random_within_bounds(cota_inferior_destino, cota_superior_destino))
+                self.model.schedule.add(persona)
+                self.personas.append(persona)
         #print("soy un paradero: " + str(self.unique_id) + " y tengo " + str(len(self.personas)) + " personas")
-        pass
-
+    
 class City(Model):
     def __init__(self, N):
+        
         self.num_paraderos = N
         self.paraderos = []
         self.recorrido = []
         self.semaforos = []
-        self.personaparadero = 0
         self.grid = MultiGrid(200, 440, torus=True)
         #se crea un programador de agentes
         self.schedule = RandomActivationByType(self) # (CREO) se crea para posteriormente guardar los agentes e la simulación
 
         self.paraderos = []
          # Crear paraderos con posiciones estáticas
-        print("Creando paraderos..."+ str(len(PARADEROS)))
+        #print("Creando semaforos..."+ str(len(SEMAFOROS)))
         for i,pos in enumerate(PARADEROS):
             paradero = BusStop(self.schedule.get_agent_count(), self, pos[0], pos[1]) #se crea un paradero
             self.schedule.add(paradero) #Se agrega el agente al programador de agentes
             #for _ in range(PERSONAS_ESPERANDO_PARADERO_INICIAL[i]):
             for _ in range(3):
-                persona = Person(self.schedule.get_agent_count(), self, random_within_bounds(0, 5, i))
+                #print("i: " + str(i) + " num_paraderos: " + str(self.num_paraderos))
+                persona = Person(self.schedule.get_agent_count(), self, random_within_bounds(i, self.num_paraderos))
                 self.schedule.add(persona)
                 paradero.personas.append(persona)
             self.paraderos.append(paradero)
             self.grid.place_agent(paradero, pos)
-        # Crear el autobús y añadirlo al programa de agentes
-        self.bus = Bus(self.schedule.get_agent_count(), self, VEL_MAX, ACELERACION, RECORRIDO)
-        self.grid.place_agent(self.bus, RECORRIDO[0])
-        self.schedule.add(self.bus)
-        #agentes = self.schedule.agents #obtiene todos los agentes
-        #paraderos = [obj for obj in agentes if isinstance(obj, BusStop)] #guarda todas los agentes paradero en una lista
+
         for pos in RECORRIDO:
             posicion = PosicionRecorrido(self.schedule.get_agent_count(), self, pos[0], pos[1]) #se crea un paradero
             self.recorrido.append(posicion)
@@ -203,13 +286,20 @@ class City(Model):
             self.grid.place_agent(trafficLight, pos)
             self.schedule.add(trafficLight) #Se agrega el agente al programador de agentes
 
+        self.bus = Bus(self.schedule.get_agent_count(), self, VEL_MAX, ACELERACION, RECORRIDO)
+        self.grid.place_agent(self.bus, RECORRIDO[0])
+        self.schedule.add(self.bus)
+
         #self.running = True
     def step(self):
         """Advance the model by one step."""
-
         # The model's step will go here for now this will call the step method of each agent and print the agent's unique_id
         self.schedule.step()
-
+        if self.schedule.steps % 120 == 0:
+            self.bus = Bus(self.schedule.get_agent_count(), self, VEL_MAX, ACELERACION, RECORRIDO)
+            self.grid.place_agent(self.bus, RECORRIDO[0])
+            self.schedule.add(self.bus)
+            #print("step: " + str(self.schedule.steps) + "agrgegue un bus")
 
 def agent_portrayal(agent):
     if agent is None:
@@ -221,20 +311,13 @@ def agent_portrayal(agent):
                 "Color": "blue",
                 "w": 0.9,
                 "h": 0.9}
-    if isinstance(agent, Bus):
-        return {"Shape": "rect",
-            "Filled": "true",
-            "Layer": 1,
-            "Color": "black",
-            "w": 0.5,
-            "h": 0.5}
     if isinstance(agent, PosicionRecorrido):
         return {"Shape": "rect",
-            "Filled": "true",
-            "Layer": 0,
-            "Color": "grey",
-            "w": 0.2,
-            "h": 0.2}
+                "Filled": "true",
+                "Layer": 0,
+                "Color": "grey",
+                "w": 0.2,
+                "h": 0.2}
     if isinstance(agent, TrafficLight):
         if agent.color == "red":
             Color = "red"
@@ -244,8 +327,16 @@ def agent_portrayal(agent):
                 "Filled": "true",
                 "Layer": 0,
                 "Color": Color,
-                "w": 0.6,
+                "w": 3,
                 "h": 0.6}
+    if isinstance(agent, Bus):
+        return {"Shape": "rect",
+            "Filled": "true",
+            "Layer": 0,
+            "Color": "yellow",
+            "w": 0.5,
+            "h": 0.5,
+            "stroke_color": "black"}
 
         
 # Definir visualización
@@ -255,5 +346,7 @@ grid = CanvasGrid(agent_portrayal, 200, 440, 2500, 5500)
 server = ModularServer(City, [grid], "Simulación de Transporte Urbano", {"N": num_paraderos})
 
 # Iniciar servidor de visualización
-server.port = 8524
+server.port = 8528
 server.launch()
+
+
