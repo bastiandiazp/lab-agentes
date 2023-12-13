@@ -97,8 +97,9 @@ HORARIOS = {
     'no_hora': -1,
 }
 FRECUENCIA_SEMAFORO = 30 #STEPS
-FRECUENCIA_LANZAR_BUS = 60 #STEPS 120 segundos
-tiempos_de_espera = [timedelta(seconds=300)]
+FRECUENCIA_LANZAR_BUS = 60*2 #STEPS 120 segundos
+tiempos_de_espera = []
+tiempos_llegada_bus_fin_recorrido = []
 """
 SUPUESTOS
 1 step = 1 segundo
@@ -107,3 +108,5 @@ SUPUESTOS
 num_paraderos = 68
 num_semaforos = 74
 num_buses = 93
+
+HoraInicialEnSegundos=6*60*60 # 6pm en segundos

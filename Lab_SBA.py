@@ -6,10 +6,11 @@ from mesa.time import RandomActivationByType
 from mesa.datacollection import DataCollector
 from mesa.visualization.modules import CanvasGrid, ChartModule
 from mesa.visualization.ModularVisualization import ModularServer
+import math
+from bisect import insort_left
 
 from variables_generales import *
 #variable de inicio de simulación
-HoraInicialEnSegundos=18*60*60 # 6pm en segundos
 
 def random_within_bounds(lower, upper):
     """
@@ -70,7 +71,7 @@ class TrafficLight(Agent):
                 self.color = "green"
 
 class Bus(Agent):
-    def __init__(self, unique_id, model, velocidad_maxima, aceleracion, recorrido,posicion_actual):
+    def __init__(self, unique_id, model, velocidad_maxima, aceleracion, recorrido,posicion_actual,primeraGeneracion):
         super().__init__(unique_id, model)
         self.pasajeros = [] #lista de personas en el bus
         self.velocidad_maxima = velocidad_maxima
@@ -84,6 +85,8 @@ class Bus(Agent):
         self.ultimo_paradero=-1 #indice del ultimo paradero en el que se detuvo
         self.steps_en_standBy = 0 #indica si el bus esta en un paradero
         self.puede_moverse = True #indica si el bus puede moverse o no
+        self.step_creacion = self.model.schedule.steps #step en el que se creo el bus
+        self.primeraGeneracion = primeraGeneracion #indica si es se genero en el init de city
 
     def moverse(self):
         #print("Bus " + str(self.unique_id) + "en standby: " + str(self.steps_en_standBy))
@@ -91,7 +94,7 @@ class Bus(Agent):
             if self.steps_en_standBy == 0:  #solo puede moverse si no tiene steps en standby
                 # Ajustar velocidad y posición según el recorrido
                 if self.posicion_actual < len(self.recorrido) - 1:
-                    distancia_por_recorrer = self.calcularDistancia()
+                    distancia_por_recorrer = self.calcularDistanciaAlgoritmoInteligente()
                     if self.velocidad >= self.velocidad_maxima:
                         self.velocidad = self.velocidad_maxima
                     elif self.velocidad < self.velocidad_maxima:
@@ -113,7 +116,10 @@ class Bus(Agent):
             #print("Bus " + str(self.unique_id) + " recogiendo personas en paradero " + str(agent.unique_id))
             for persona in paradero.personas[:]:
                 if len(self.pasajeros) < self.limite_pasajeros: #si el bus no esta lleno
+                    self.velocidad = 0  #el bus se detiene
                     self.steps_en_standBy+= 1   #agrego un standby por cada persona que se sube
+                    #print(tiempos_de_espera)
+                    tiempos_de_espera.append(self.model.schedule.steps - persona.step_creacion) #se agrega el tiempo de espera de la persona
                     self.pasajeros.append(persona) #se agregan las personas al bus
                     paradero.personas.remove(persona) #se saca la persona del paradero
                     
@@ -124,13 +130,47 @@ class Bus(Agent):
         for persona in self.pasajeros[:]:
             #print(f"{persona.destino}, {indice_paradero}")
             if persona.destino == indice_paradero: #si el destino de la persona es el paradero actual
+                self.velocidad = 0 #el bus se detiene
                 self.steps_en_standBy+= 1   #agrego un standby por cada persona que se baja
                 self.pasajeros.remove(persona)
                 #print("Bus " + str(self.unique_id) + " dejando persona " + str(persona.unique_id) + " en paradero " + str(self.posicion_actual))
                 agent.personas.append(persona)
 
-    def calcularDistancia(self):
+    def calcularDistancia(self):           
         return self.velocidad+0.5*self.aceleracion
+    
+    def calcularDistanciaAlgoritmoInteligente(self):
+        encontrado_bus = False
+        distanciaAdelante = 0
+        for i in range(self.posicion_actual+1,len(self.recorrido)-1): #recorro el recorrido desde la posicion actual+1 hasta el final
+            cell_contents = self.model.grid.get_cell_list_contents(self.recorrido[i]) #obtengo los agentes en la celda actual
+            distanciaAdelante += 1
+            for agent in cell_contents: #recorro los agentes en la celda actual
+                if isinstance(agent, Bus):
+                    encontrado_bus = True
+                    break
+            if encontrado_bus:
+                break
+        encontrado_bus = False
+        distanciaAtras = 0
+        for i in range(self.posicion_actual-1,0,-1): #for recorro el recorrido desde la posicion actual+1 hasta el inicio
+            cell_contents = self.model.grid.get_cell_list_contents(self.recorrido[i]) #obtengo los agentes en la celda actual
+            distanciaAtras += 1
+            for agent in cell_contents:
+                if isinstance(agent, Bus):
+                    encontrado_bus = True
+                    break
+            if encontrado_bus:
+                break
+        if distanciaAdelante > distanciaAtras:
+            #print("acelero, con distancia adelante: " + str(distanciaAdelante) + " y distancia atras: " + str(distanciaAtras) )
+            return self.velocidad+0.5*self.aceleracion*1.5
+        if distanciaAdelante == distanciaAtras:
+            #print("mantengo, con distancia adelante: " + str(distanciaAdelante) + " y distancia atras: " + str(distanciaAtras) )
+            return self.velocidad+0.5*self.aceleracion*1
+        if distanciaAdelante < distanciaAtras:
+            #print("freno, con distancia adelante: " + str(distanciaAdelante) + " y distancia atras: " + str(distanciaAtras) )
+            return self.velocidad+0.5*self.aceleracion*0.5
 
     def step(self):
         #print("soy un bus: " + str(self.unique_id) + " y estoy en la posicion " + str(self.posicion_actual))
@@ -143,8 +183,8 @@ class Bus(Agent):
                     self.abandonarPasajeros(agent,indice_paradero)
                     self.recogerPasajeros(agent)
                     self.ultimo_paradero = indice_paradero
-                    self.velocidad = 0
-            if isinstance(agent, TrafficLight):
+                    
+            elif isinstance(agent, TrafficLight):
                 indice_semaforo = SEMAFOROS.index(agent.posicion)
                 if agent.color == "red":
                     if indice_semaforo != self.ultimo_paradero:
@@ -156,9 +196,10 @@ class Bus(Agent):
         self.moverse()
 
 class Person(Agent):
-    def __init__(self, unique_id, model,destino):
+    def __init__(self, unique_id, model, destino):
         super().__init__(unique_id, model)
         self.destino = destino #numero entre 0 y 67, corresponde al index de paradero de destino
+        self.step_creacion = self.model.schedule.steps #step en el que se creo la persona
     def step(self):
         pass
 
@@ -185,7 +226,7 @@ class Paradero(Agent):
                 cota_inferior_destino = PARADEROS.index(self.posicion) #obtengo el indice del paradero actual
                 cota_superior_destino = len(PARADEROS) #obtengo el indice del ultimo paradero
                 for _ in range(agregar):
-                    persona = Person(generar_id(), self, random_within_bounds(cota_inferior_destino, cota_superior_destino))
+                    persona = Person(generar_id(), self.model, random_within_bounds(cota_inferior_destino, cota_superior_destino))
                     self.model.schedule.add(persona)
                     self.personas.append(persona)
             #print("soy un paradero: " + str(self.unique_id) + " y tengo " + str(len(self.personas)) + " personas")
@@ -203,6 +244,12 @@ class City(Model):
         #se crea un programador de agentes
         self.schedule = RandomActivationByType(self) # (CREO) se crea para posteriormente guardar los agentes e la simulación
         self.horaActual = HoraInicialEnSegundos #hora actual en segundos
+        self.promedioTiemposEspera = 0
+        self.promedioTiempoLlegadaBusFinRecorrido = 0
+        self.promedioPasajerosPorBus = 0
+        self.desviacionEstandarPasajerosPorBus = 0
+        self.promedioDistanciaEntreBuses = 0
+        self.desviacion_estandar_distancias_entre_buses = 0
 
         self.paraderos = []
          # Crear paraderos con posiciones estáticas
@@ -233,25 +280,66 @@ class City(Model):
             self.schedule.add(trafficLight) #Se agrega el agente al programador de agentes
         
         for i,pos in enumerate(PARADEROS):
-            if i% 3 == 0 and i!=0:
-                bus = Bus(generar_id(), self, VEL_MAX, ACELERACION, RECORRIDO, RECORRIDO.index(pos))
+            if i% 4 == 0 and i!=0:
+                bus = Bus(generar_id(), self, VEL_MAX, ACELERACION, RECORRIDO, RECORRIDO.index(pos),True)
                 self.buses.append(bus)
                 self.grid.place_agent(bus, pos)
                 self.schedule.add(bus)
                 self.num_buses_circulando += 1
 
+        model_reporters = {}
+        model_reporters["Promedio Tiempo de Espera"] = lambda model: model.promedioTiemposEspera
+        chart_description = [{"Label": "Promedio Tiempo de Espera", "Color": "blue"}]
+        self.chart1 = ChartModule(chart_description)
+
+        model_reporters["Promedio Pasajeros por Bus"] = lambda model: model.promedioPasajerosPorBus
+        chart_description = [{"Label": "Promedio Pasajeros por Bus", "Color": "green"}]
+        self.chart2 = ChartModule(chart_description)
+        self.datacollector = DataCollector(model_reporters=model_reporters)
+
+        model_reporters["Desviacion Estandar Pasajeros en Buses"] = lambda model: model.desviacionEstandarPasajerosPorBus
+        chart_description = [{"Label": "Desviacion Estandar Pasajeros en Buses", "Color": "yellow"}]
+        self.chart3 = ChartModule(chart_description)
+        self.datacollector = DataCollector(model_reporters=model_reporters)
+
+        model_reporters["Promedio distancia entre en Buses"] = lambda model: model.promedioDistanciaEntreBuses
+        chart_description = [{"Label": "Promedio distancia entre en Buses", "Color": "orange"}]
+        self.chart4 = ChartModule(chart_description)
+        self.datacollector = DataCollector(model_reporters=model_reporters)
+
+        model_reporters["Desviacion Estandar distancia entre en Buses"] = lambda model: model.desviacion_estandar_distancias_entre_buses
+        chart_description = [{"Label": "Desviacion Estandar distancia entre en Buses", "Color": "purple"}]
+        self.chart5 = ChartModule(chart_description)
+        self.datacollector = DataCollector(model_reporters=model_reporters)
+
+
+        self.running = True
 
 
         #self.running = True
     def step(self):
         """Advance the model by one step."""
         # The model's step will go here for now this will call the step method of each agent and print the agent's unique_id
+       
         self.schedule.step()
+        if self.schedule.steps % 100 == 0:
+            print([bus.distancia_recorrida for bus in self.buses])
+            self.datacollector.collect(self)
+            self.promedioTiemposEspera = sum(tiempos_de_espera) / len(tiempos_de_espera)    #se calcula el promedio de tiempos de espera
+            cantidad_pasajeros_por_bus = [len(bus.pasajeros) for bus in self.buses]    #se obtienen la cantidad de pasajeros por bus
+            self.promedioPasajerosPorBus = sum(cantidad_pasajeros_por_bus) / len(self.buses) #se calcula el promedio de pasajeros por bus
+            varianza_pasajeros_por_bus = sum([(x - self.promedioPasajerosPorBus) ** 2 for x in cantidad_pasajeros_por_bus]) / len(self.buses)
+            self.desviacionEstandarPasajerosPorBus = math.sqrt(varianza_pasajeros_por_bus)
+            distancias_buses = [bus.distancia_recorrida for bus in self.buses]
+            distancias_entre_buses = [distancias_buses[i + 1] - distancias_buses[i] for i in range(len(distancias_buses) - 1)]
+            self.promedioDistanciaEntreBuses = sum(distancias_entre_buses) / len(distancias_entre_buses)
+            varianza_distancias_entre_buses = sum([(x - self.promedioDistanciaEntreBuses) ** 2 for x in distancias_entre_buses]) / len(distancias_entre_buses)
+            self.desviacion_estandar_distancias_entre_buses = math.sqrt(varianza_distancias_entre_buses)
         self.horaActual = HoraInicialEnSegundos + self.schedule.steps #hora actual en segundos
-        print("buses circulando: " + str(self.num_buses_circulando))
+        #print("buses circulando: " + str(self.num_buses_circulando))
         if self.schedule.steps % FRECUENCIA_LANZAR_BUS == 0:
-            bus = Bus(generar_id(), self, VEL_MAX, ACELERACION, RECORRIDO,0)
-            self.buses.append(bus)
+            bus = Bus(generar_id(), self, VEL_MAX, ACELERACION, RECORRIDO,0, False)
+            insort_left(self.buses, bus, key=lambda x: x.distancia_recorrida)
             self.grid.place_agent(bus, RECORRIDO[0])
             self.schedule.add(bus)
             self.num_buses_circulando += 1
@@ -269,13 +357,7 @@ def agent_portrayal(agent):
                 "Color": "blue",
                 "w": 0.9,
                 "h": 0.9}
-    if isinstance(agent, PosicionRecorrido):
-        return {"Shape": "rect",
-                "Filled": "true",
-                "Layer": 0,
-                "Color": "grey",
-                "w": 0.2,
-                "h": 0.2}
+
     if isinstance(agent, TrafficLight):
         if agent.color == "red":
             Color = "red"
@@ -285,26 +367,26 @@ def agent_portrayal(agent):
                 "Filled": "true",
                 "Layer": 0,
                 "Color": Color,
-                "w": 2,
-                "h": 0.6}
+                "w": 0.9,
+                "h": 0.9}
     if isinstance(agent, Bus):
-        return {"Shape": "rect",
+        return {"Shape": "circle",
             "Filled": "true",
             "Layer": 1,
             "Color": "yellow",
-            "w": 0.5,
-            "h": 0.5,
+            "r": 0.6,
             "stroke_color": "black"}
 
         
 # Definir visualización
 grid = CanvasGrid(agent_portrayal, 200, 440, 2500, 5500)
 
+city = City(num_paraderos)
 # Definir servidor de visualización
-server = ModularServer(City, [grid], "Simulación de Transporte Urbano", {"N": num_paraderos})
+server = ModularServer(City, [grid, city.chart1, city.chart2,city.chart3, city.chart4, city.chart5], "Simulación de Transporte Urbano 210", {"N": num_paraderos})
 
 # Iniciar servidor de visualización
-server.port = 8528
+server.port = 8529
 server.launch()
 
 
