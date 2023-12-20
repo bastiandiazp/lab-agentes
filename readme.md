@@ -1,10 +1,9 @@
 # Simulación autobus 210
 
-proyecto que simula el recorrido de autobus 210 desde Puente alto a Estación central usando python mesa
+Proyecto que simula el recorrido de autobus 210 desde Puente alto a Estación central usando python mesa
 
 ## Autores
 - Bastían Díaz
-- Otro Colaborador 
 - Esteban Cruces
 - Matias Osses
 - Francisco Riquelme
