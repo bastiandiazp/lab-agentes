@@ -1,3 +1,9 @@
+"""
+Archivo: variables_generales.py
+Autores: Bastían Díaz - Esteban Cruces - Matias Osse s- Francisco Riquelme
+"""
+
+
 from datetime import datetime, timedelta
 
 SEMAFOROS = [(190, 12), (189, 14), (189, 19), (188, 21), (188, 26), (187, 28), (187, 33), (186, 35), (186, 40), (185, 42), (185, 47),
@@ -109,4 +115,4 @@ num_paraderos = 68
 num_semaforos = 74
 num_buses = 93
 
-HoraInicialEnSegundos=6*60*60 # 6pm en segundos
+HoraInicialEnSegundos=6*60*60 # 6am en segundos

@@ -1,3 +1,8 @@
+"""
+Archivo: Lab_SBA.py
+Autores: Bastían Díaz - Esteban Cruces - Matias Osse s- Francisco Riquelme
+"""
+
 import random
 from datetime import datetime, timedelta
 from mesa import Agent, Model
@@ -94,7 +99,7 @@ class Bus(Agent):
             if self.steps_en_standBy == 0:  #solo puede moverse si no tiene steps en standby
                 # Ajustar velocidad y posición según el recorrido
                 if self.posicion_actual < len(self.recorrido) - 1:
-                    distancia_por_recorrer = self.calcularDistanciaAlgoritmoInteligente()
+                    distancia_por_recorrer = self.calcularDistancia()
                     if self.velocidad >= self.velocidad_maxima:
                         self.velocidad = self.velocidad_maxima
                     elif self.velocidad < self.velocidad_maxima:
@@ -322,8 +327,8 @@ class City(Model):
         # The model's step will go here for now this will call the step method of each agent and print the agent's unique_id
        
         self.schedule.step()
-        if self.schedule.steps % 100 == 0:
-            print([bus.distancia_recorrida for bus in self.buses])
+        if self.schedule.steps % 50 == 0:
+            #print([bus.distancia_recorrida for bus in self.buses])
             self.datacollector.collect(self)
             self.promedioTiemposEspera = sum(tiempos_de_espera) / len(tiempos_de_espera)    #se calcula el promedio de tiempos de espera
             cantidad_pasajeros_por_bus = [len(bus.pasajeros) for bus in self.buses]    #se obtienen la cantidad de pasajeros por bus
